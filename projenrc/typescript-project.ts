@@ -17,20 +17,19 @@ class TypeScriptBaseProject extends TypeScriptProject {
   constructor({ jestOptions, ...options }: TypeScriptBaseProjectOptions) {
     const parent = options.parent as NodeProject;
     super({
-      defaultReleaseBranch: "master",
+      defaultReleaseBranch: "main",
       authorEmail: parent.package.manifest.author.email,
       authorName: parent.package.manifest.author.name,
       packageManager: parent.package.packageManager,
       package: false,
-      licensed: false,
       eslint: true,
       prettier: true,
       projenVersion: parent.deps.getDependency("projen").version,
+      typescriptVersion: parent.deps.getDependency("typescript").version,
       outdir: `packages/${options.name}`,
-      jest: false,
       depsUpgrade: false,
       ...options,
-      name: `@pms/${options.name}`,
+      name: `@${parent.root.name}/${options.name}`,
     });
 
     this.tsconfigDev?.addInclude("**/*.ts");

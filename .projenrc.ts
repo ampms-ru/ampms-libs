@@ -1,21 +1,23 @@
 import {
-  Husky,
-  PmsMonorepoProject,
+  // Husky,
+  MonorepoProject,
   TypeScriptLibProject,
   Vitest,
 } from "./projenrc";
 
-const project = new PmsMonorepoProject({
-  name: "pms-libs",
+const project = new MonorepoProject({
+  name: "ampms-libs",
+  authorEmail: "ifloydrose@gmail.com",
+  authorName: "Victor Korzunin",
 });
 
 new Vitest(project);
 
-new Husky(project, {
-  huskyHooks: {
-    "pre-push": ["CI=true pnpm test"],
-  },
-});
+// new Husky(project, {
+//   huskyHooks: {
+//     "pre-push": ["CI=true pnpm test"],
+//   },
+// });
 
 project.addGitIgnore(".vscode/settings.json");
 
@@ -32,9 +34,5 @@ new TypeScriptLibProject({
   parent: project,
   name: "effect-boerse-frankfurt",
 });
-
-// project.package.addPackageResolutions(
-//   "@aws-cdk/aws-cognito-identitypool-alpha@2.147.1-alpha.0"
-// );
 
 project.synth();
