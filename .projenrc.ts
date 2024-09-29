@@ -21,18 +21,23 @@ new Vitest(project);
 
 project.addGitIgnore(".vscode/settings.json");
 
-// const commonDeps: string[] = ["effect", "@effect/schema"];
-
-// const commonDevDeps = [
-//   "@effect/vitest",
-//   "@fast-check/vitest",
-//   "@fluffy-spoon/substitute",
-//   "fast-check",
-// ];
+const commonDevDeps = ["@effect/vitest", "fast-check"];
 
 new TypeScriptLibProject({
   parent: project,
   name: "effect-boerse-frankfurt",
+  devDeps: [
+    ...commonDevDeps,
+    "@effect/platform@^0.66.2",
+    "@effect/schema@^0.74.1",
+    "effect@^3.8.4",
+  ],
+  peerDeps: [
+    "@effect/platform@>=0.65.0",
+    "@effect/schema@>=0.73.0",
+    "effect@>=3.8.0 <4.0.0",
+  ],
+  peerDependencyOptions: { pinnedDevDependency: false },
 });
 
 project.synth();

@@ -1,5 +1,3 @@
-export class Hello {
-  public sayHello() {
-    return "hello, world!";
-  }
-}
+export * from "./errors";
+export * from "./schema";
+export * from "./service";
