@@ -3,6 +3,7 @@
     ".eslintrc.json",
     ".gitattributes",
     ".gitignore",
+    ".husky/pre-push",
     ".npmignore",
     ".npmrc",
     ".nxignore",

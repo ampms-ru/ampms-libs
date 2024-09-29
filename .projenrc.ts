@@ -1,5 +1,5 @@
 import {
-  // Husky,
+  Husky,
   MonorepoProject,
   TypeScriptLibProject,
   Vitest,
@@ -13,11 +13,11 @@ const project = new MonorepoProject({
 
 new Vitest(project);
 
-// new Husky(project, {
-//   huskyHooks: {
-//     "pre-push": ["CI=true pnpm test"],
-//   },
-// });
+new Husky(project, {
+  huskyHooks: {
+    "pre-push": ["CI=true pnpm test"],
+  },
+});
 
 project.addGitIgnore(".vscode/settings.json");
 

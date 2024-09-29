@@ -51,6 +51,10 @@
       "type": "build"
     },
     {
+      "name": "husky",
+      "type": "build"
+    },
+    {
       "name": "nx",
       "version": "^19",
       "type": "build"

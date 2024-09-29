@@ -49,3 +49,4 @@ jspm_packages/
 !/pnpm-workspace.yaml
 !/.projenrc.ts
 !/LICENSE
+!/.husky/pre-push
