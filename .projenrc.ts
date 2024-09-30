@@ -1,14 +1,11 @@
-import {
-  Husky,
-  MonorepoProject,
-  TypeScriptLibProject,
-  Vitest,
-} from "./projenrc";
+import { Husky } from "@floydspace/projen-components";
+import { MonorepoProject, TypeScriptLibProject, Vitest } from "./projenrc";
 
 const project = new MonorepoProject({
   name: "ampms-libs",
   authorEmail: "ifloydrose@gmail.com",
   authorName: "Victor Korzunin",
+  devDeps: ["@floydspace/projen-components"],
 });
 
 new Vitest(project);
