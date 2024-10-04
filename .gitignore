@@ -45,6 +45,8 @@ jspm_packages/
 !/.nxignore
 !/NOTICE
 !/vitest.workspace.json
+!/.changeset/config.json
+!/.github/workflows/release.yml
 .vscode/settings.json
 !/pnpm-workspace.yaml
 !/.projenrc.ts

@@ -10,6 +10,27 @@
         }
       ]
     },
+    "bump": {
+      "name": "bump",
+      "description": "Bump package versions with changesets",
+      "steps": [
+        {
+          "exec": "changeset version"
+        },
+        {
+          "spawn": "install"
+        }
+      ]
+    },
+    "changeset": {
+      "name": "changeset",
+      "steps": [
+        {
+          "exec": "changeset",
+          "receiveArgs": true
+        }
+      ]
+    },
     "compile": {
       "name": "compile",
       "description": "Only compile for all affected projects",
@@ -118,7 +139,16 @@
       "description": "installs husky",
       "steps": [
         {
-          "exec": "husky"
+          "exec": "is-ci || husky"
+        }
+      ]
+    },
+    "release": {
+      "name": "release",
+      "description": "Release with changesets",
+      "steps": [
+        {
+          "exec": "changeset publish"
         }
       ]
     },

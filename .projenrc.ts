@@ -1,4 +1,4 @@
-import { Husky } from "@floydspace/projen-components";
+import { Husky, Changesets } from "@floydspace/projen-components";
 import { MonorepoProject, TypeScriptLibProject, Vitest } from "./projenrc";
 
 const project = new MonorepoProject({
@@ -14,6 +14,10 @@ new Husky(project, {
   huskyHooks: {
     "pre-push": ["CI=true pnpm test"],
   },
+});
+
+new Changesets(project, {
+  repo: "ampms-ru/ampms-libs",
 });
 
 project.addGitIgnore(".vscode/settings.json");
