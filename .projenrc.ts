@@ -22,22 +22,17 @@ new Changesets(project, {
 
 project.addGitIgnore(".vscode/settings.json");
 
-const commonDevDeps = ["@effect/vitest", "fast-check"];
+const commonDevDeps = ["@effect/vitest"];
 
 new TypeScriptLibProject({
   parent: project,
   name: "effect-boerse-frankfurt",
   devDeps: [
     ...commonDevDeps,
-    "@effect/platform@^0.66.2",
-    "@effect/schema@^0.74.1",
-    "effect@^3.8.4",
+    "@effect/platform@>=0.69.0 <1.0.0",
+    "effect@^3.10.0",
   ],
-  peerDeps: [
-    "@effect/platform@>=0.65.0",
-    "@effect/schema@>=0.73.0",
-    "effect@>=3.8.0 <4.0.0",
-  ],
+  peerDeps: ["@effect/platform@>=0.69.0 <1.0.0", "effect@>=3.10.0 <4.0.0"],
   peerDependencyOptions: { pinnedDevDependency: false },
 });
 

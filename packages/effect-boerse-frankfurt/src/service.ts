@@ -1,6 +1,5 @@
 import { HttpClientResponse } from "@effect/platform";
-import { Schema } from "@effect/schema";
-import { Effect, Layer, String } from "effect";
+import { Effect, Layer, Schema, String } from "effect";
 import { makeBoerseFrankfurtHttpClient } from "./client";
 import { PriceHistoryError } from "./errors";
 import {
