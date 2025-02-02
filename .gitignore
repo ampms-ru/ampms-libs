@@ -4,6 +4,7 @@
 !/.projen/deps.json
 !/.projen/files.json
 !/package.json
+!/LICENSE
 !/.npmignore
 logs
 *.log
@@ -39,10 +40,6 @@ jspm_packages/
 /lib
 /dist/
 !/.eslintrc.json
-.nx/*
-!.nx/plugins
-!/nx.json
-!/.nxignore
 !/NOTICE
 !/vitest.workspace.json
 !/.changeset/config.json
@@ -50,5 +47,4 @@ jspm_packages/
 .vscode/settings.json
 !/pnpm-workspace.yaml
 !/.projenrc.ts
-!/LICENSE
 !/.husky/pre-push

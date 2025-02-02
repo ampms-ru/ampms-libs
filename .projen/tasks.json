@@ -5,7 +5,7 @@
       "description": "Full release build for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=build --output-style=stream --nx-bail",
+          "exec": "pnpm --recursive --parallel run build",
           "receiveArgs": true
         }
       ]
@@ -36,7 +36,7 @@
       "description": "Only compile for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=compile --output-style=stream --nx-bail",
+          "exec": "pnpm --recursive --parallel run compile",
           "receiveArgs": true
         }
       ]
@@ -46,7 +46,7 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "exec": "tsx .projenrc.ts"
         }
       ]
     },
@@ -65,19 +65,12 @@
     "eslint": {
       "name": "eslint",
       "description": "Runs eslint against the codebase for all affected projects",
+      "env": {
+        "ESLINT_USE_FLAT_CONFIG": "false"
+      },
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=eslint --output-style=stream --nx-bail",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "graph": {
-      "name": "graph",
-      "description": "Generate dependency graph for monorepo",
-      "steps": [
-        {
-          "exec": "pnpm exec nx graph",
+          "exec": "pnpm --recursive --parallel run eslint",
           "receiveArgs": true
         }
       ]
@@ -97,10 +90,6 @@
       "steps": [
         {
           "exec": "pnpm i --frozen-lockfile"
-        },
-        {
-          "exec": "pnpm exec nx run-many --target=install:ci --output-style=stream --nx-bail",
-          "receiveArgs": true
         }
       ]
     },
@@ -109,7 +98,7 @@
       "description": "Creates the distribution package for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=package --output-style=stream --nx-bail",
+          "exec": "pnpm --recursive --parallel run package",
           "receiveArgs": true
         }
       ]
@@ -119,7 +108,7 @@
       "description": "Runs after successful compilation for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=post-compile --output-style=stream --nx-bail",
+          "exec": "pnpm --recursive --parallel run post-compile",
           "receiveArgs": true
         }
       ]
@@ -129,8 +118,17 @@
       "description": "Prepare the project for compilation for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=pre-compile --output-style=stream --nx-bail",
+          "exec": "pnpm --recursive --parallel run pre-compile",
           "receiveArgs": true
+        }
+      ]
+    },
+    "preinstall": {
+      "name": "preinstall",
+      "description": "asserts the correct package manager is used",
+      "steps": [
+        {
+          "exec": "npx only-allow pnpm"
         }
       ]
     },
@@ -152,16 +150,6 @@
         }
       ]
     },
-    "run-many": {
-      "name": "run-many",
-      "description": "Run task against multiple workspace projects",
-      "steps": [
-        {
-          "exec": "pnpm exec nx run-many",
-          "receiveArgs": true
-        }
-      ]
-    },
     "test": {
       "name": "test",
       "description": "Run tests for all affected projects",
@@ -177,7 +165,7 @@
       "description": "Watch & compile in the background for all affected projects",
       "steps": [
         {
-          "exec": "pnpm exec nx run-many --target=watch --output-style=stream --skip-nx-cache --nx-ignore-cycles --nx-bail",
+          "exec": "pnpm --recursive --parallel run watch",
           "receiveArgs": true
         }
       ]

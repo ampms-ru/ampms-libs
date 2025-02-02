@@ -5,7 +5,7 @@ const project = new MonorepoProject({
   name: "ampms-libs",
   authorEmail: "ifloydrose@gmail.com",
   authorName: "Victor Korzunin",
-  devDeps: ["@floydspace/projen-components"],
+  devDeps: ["@floydspace/projen-components@next"],
 });
 
 new Vitest(project);
