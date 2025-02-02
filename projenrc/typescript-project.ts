@@ -66,7 +66,7 @@ export class TypeScriptLibProject extends TypeScriptBaseProject {
       obj: {
         extends: "./tsconfig.json",
         compilerOptions: {
-          outDir: "./lib/esm",
+          outDir: `./${this.libdir}/esm`,
           module: "es6", // esm
           resolveJsonModule: false, // JSON modules are not supported in esm
           declaration: false, // Declaration are generated for cjs
@@ -74,18 +74,21 @@ export class TypeScriptLibProject extends TypeScriptBaseProject {
       },
     });
 
-    // Reference to esm index for root imports
-    this.package.addField("module", "lib/esm/index.js");
-    this.package.addField("sideEffects", []);
+    this.addFields({
+      // Reference to esm index for root imports
+      module: `${this.libdir}/esm/index.js`,
+      publishConfig: { access: "public" },
+      sideEffects: [],
+    });
 
     // Add export aliases for additional imports
     for (const alias in exportAliases) {
       new JsonFile(this, `${path.dirname(this.srcdir)}/${alias}/package.json`, {
         obj: {
           name: alias,
-          main: `../lib/${exportAliases[alias]}.js`,
-          module: `../lib/esm/${exportAliases[alias]}.js`,
-          types: `../lib/${exportAliases[alias]}.d.ts`,
+          main: `../${this.libdir}/${exportAliases[alias]}.js`,
+          module: `../${this.libdir}/esm/${exportAliases[alias]}.js`,
+          types: `../${this.libdir}/${exportAliases[alias]}.d.ts`,
           sideEffects: [],
         },
       });
