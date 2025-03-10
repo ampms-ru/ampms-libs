@@ -1,5 +1,11 @@
 # @ampms-libs/effect-boerse-frankfurt
 
+## 0.2.1
+
+### Patch Changes
+
+- [`cf4031b`](https://github.com/ampms-ru/ampms-libs/commit/cf4031bc802272cdd27c61a976774703e8b3aebf) Thanks [@floydspace](https://github.com/floydspace)! - fix parsing, remove useless params
+
 ## 0.2.0
 
 ### Minor Changes
