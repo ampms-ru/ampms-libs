@@ -21,6 +21,7 @@ import {
   GetTradingViewHistoryOptions,
   ListTimeseriesMessage,
   PriceHistory,
+  Resolution,
   Ticker,
   TradingViewHistory,
   TradingViewInfo,
@@ -133,7 +134,7 @@ const makeService = Effect.gen(function* () {
           new TextEncoder().encode(
             JSON.stringify({
               listTimeseries: {
-                resolution: "1D",
+                resolution: Resolution.Day,
                 marketstateId: `REALTIME[${isin}@${micToMdsSourceId.get(mic)}]`,
                 start: options.from.toISOString().split("T")[0],
                 end: options.to.toISOString().split("T")[0],
@@ -146,7 +147,7 @@ const makeService = Effect.gen(function* () {
       }).pipe(Effect.scoped);
 
       return Stream.fromQueue(messages).pipe(
-        Stream.flatMap(Schema.decodeUnknownOption(Schema.parseJson())),
+        Stream.flatMap(Schema.decodeUnknown(Schema.parseJson())),
         Stream.takeUntil(Schema.is(CompletionMessage)),
         Stream.filterMap(Schema.decodeUnknownOption(ListTimeseriesMessage)),
         Stream.map((msg) => msg.dataTimeseries),

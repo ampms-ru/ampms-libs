@@ -74,8 +74,6 @@ export interface GetPriceHistoryOptions {
   readonly symbol: Ticker;
   readonly from: Date;
   readonly to: Date;
-  readonly limit?: number;
-  readonly offset?: number;
 }
 
 export class PriceHistory extends Schema.Class<PriceHistory>("PriceHistory")({
