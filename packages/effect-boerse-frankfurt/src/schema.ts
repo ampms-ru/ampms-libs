@@ -98,3 +98,25 @@ export const GetPriceHistoryResponse = Schema.Struct({
 export const GetPriceHistoryError = Schema.Struct({
   messages: Schema.Array(Schema.String),
 });
+
+export const GetMdsTokenResponse = Schema.Struct({
+  token: Schema.String,
+});
+
+export const ListTimeseriesMessage = Schema.Struct({
+  dataTimeseries: Schema.Struct({
+    date: Schema.String,
+    open: Schema.Number,
+    high: Schema.Number,
+    low: Schema.Number,
+    close: Schema.Number,
+    turnover: Schema.Number,
+    quantity: Schema.Number,
+  }),
+  requestId: Schema.String,
+});
+
+export const CompletionMessage = Schema.Struct({
+  isComplete: Schema.Literal(true),
+  requestId: Schema.String,
+});

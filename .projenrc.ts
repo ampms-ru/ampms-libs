@@ -29,10 +29,15 @@ new TypeScriptLibProject({
   name: "effect-boerse-frankfurt",
   devDeps: [
     ...commonDevDeps,
-    "@effect/platform@>=0.69.0 <1.0.0",
-    "effect@^3.10.0",
+    "@effect/platform@0.75.1",
+    "@effect/platform-node@0.71.1",
+    "effect@3.12.7",
   ],
-  peerDeps: ["@effect/platform@>=0.69.0 <1.0.0", "effect@>=3.10.0 <4.0.0"],
+  peerDeps: [
+    "@effect/platform@>=0.69.0 <1.0.0",
+    "@effect/platform-node@>=0.64.0 <1.0.0",
+    "effect@>=3.10.0 <4.0.0",
+  ],
   peerDependencyOptions: { pinnedDevDependency: false },
 });
 

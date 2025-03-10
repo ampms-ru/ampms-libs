@@ -1,12 +1,25 @@
-import { HttpClientResponse } from "@effect/platform";
-import { Effect, Layer, Schema, String } from "effect";
-import { makeBoerseFrankfurtHttpClient } from "./client";
-import { PriceHistoryError } from "./errors";
+import crypto from "node:crypto";
+
+import { HttpClientResponse, Socket } from "@effect/platform";
+import { NodeSocket } from "@effect/platform-node";
 import {
-  GetPriceHistoryError,
+  Chunk,
+  Effect,
+  Layer,
+  Order,
+  Queue,
+  Schema,
+  Stream,
+  String,
+} from "effect";
+import { makeBoerseFrankfurtHttpClient } from "./client";
+import { UnauthorizedError } from "./errors";
+import {
+  CompletionMessage,
+  GetMdsTokenResponse,
   GetPriceHistoryOptions,
-  GetPriceHistoryResponse,
   GetTradingViewHistoryOptions,
+  ListTimeseriesMessage,
   PriceHistory,
   Ticker,
   TradingViewHistory,
@@ -51,8 +64,8 @@ const makeService = Effect.gen(function* () {
                 high: h.h[index],
                 low: h.l[index],
                 close: h.c[index],
-                turnoverEuro: 0,
-                turnoverPieces: h.v[index] ?? 0,
+                turnoverPieces: 0,
+                turnoverEuro: h.v[index] ?? 0,
               })),
             encode: (h) => ({
               s: "ok",
@@ -61,45 +74,113 @@ const makeService = Effect.gen(function* () {
               o: h.map((p) => p.open),
               h: h.map((p) => p.high),
               l: h.map((p) => p.low),
-              v: h.map((p) => p.turnoverPieces),
+              v: h.map((p) => p.turnoverEuro),
             }),
           }),
         ),
       ),
     );
 
-  const getPriceHistory = (options: GetPriceHistoryOptions) => {
-    const [mic, isin] = String.split(options.symbol, ":");
+  const getMdsToken = () => {
+    const tokenPath = "/mdstokenservice/token";
+    const clientDate = new Date().toISOString();
+    const tracingId = "ea65e63f-b88f-414f-b1a9-e035263c8b0f";
 
     return client
-      .get("/data/price_history", {
-        urlParams: {
-          isin: isin.toUpperCase(),
-          mic: mic.toUpperCase(),
-          minDate: options.from.toISOString().split("T")[0],
-          maxDate: options.to.toISOString().split("T")[0],
-          limit: options.limit,
-          offset: options.offset,
+      .get(tokenPath, {
+        headers: {
+          "X-Request-Datetime": clientDate,
+          "X-Request-Trace-Id": crypto
+            .createHash("sha256")
+            .update(`${tokenPath}@${clientDate}W${tracingId}`)
+            .digest("hex"),
         },
       })
       .pipe(
-        Effect.andThen(
-          HttpClientResponse.schemaBodyJson(GetPriceHistoryResponse),
-        ),
-        Effect.catchTag("ResponseError", ({ response }) =>
-          response.json.pipe(
-            Effect.andThen(Schema.decodeUnknown(GetPriceHistoryError)),
-            Effect.andThen((res) => new PriceHistoryError(res)),
-          ),
-        ),
+        Effect.andThen(HttpClientResponse.schemaBodyJson(GetMdsTokenResponse)),
+        Effect.catchTag("ParseError", () => new UnauthorizedError()),
         Effect.scoped,
       );
   };
+
+  const getPriceHistoryWs = (options: GetPriceHistoryOptions) =>
+    Effect.gen(function* () {
+      const [mic, isin] = String.split(options.symbol, ":");
+      const micToMdsSourceId = new Map([
+        ["XFRA", "FRA"],
+        ["XETR", "ETR"],
+        ["STOX", "STX"],
+        ["XEUR", "EUR"],
+        ["EZB", "ECB"],
+      ]);
+      const socket = yield* Socket.makeWebSocket(
+        "wss://mds.ariva-services.de/api/v1/marketstates/ws",
+      );
+      const auth = yield* getMdsToken();
+      const messages = yield* Queue.unbounded<string | Uint8Array>();
+      yield* Effect.fork(socket.runRaw((_) => messages.offer(_)));
+      yield* Effect.gen(function* () {
+        const write = yield* socket.writer;
+        yield* write(
+          new TextEncoder().encode(
+            JSON.stringify({
+              subscribeAuthentication: auth,
+              requestId: "request-0",
+            }),
+          ),
+        );
+        yield* write(
+          new TextEncoder().encode(
+            JSON.stringify({
+              listTimeseries: {
+                resolution: "1D",
+                marketstateId: `REALTIME[${isin}@${micToMdsSourceId.get(mic)}]`,
+                start: options.from.toISOString().split("T")[0],
+                end: options.to.toISOString().split("T")[0],
+                quality: "REALTIME",
+              },
+              requestId: "request-1",
+            }),
+          ),
+        );
+      }).pipe(Effect.scoped);
+
+      return Stream.fromQueue(messages).pipe(
+        Stream.flatMap(Schema.decodeUnknownOption(Schema.parseJson())),
+        Stream.takeUntil(Schema.is(CompletionMessage)),
+        Stream.filterMap(Schema.decodeUnknownOption(ListTimeseriesMessage)),
+        Stream.map((msg) => msg.dataTimeseries),
+      );
+    }).pipe(Stream.unwrap);
+
+  const getPriceHistory = (options: GetPriceHistoryOptions) =>
+    getPriceHistoryWs(options).pipe(
+      Stream.map(
+        (dt) =>
+          new PriceHistory({
+            ...dt,
+            turnoverPieces: dt.quantity,
+            turnoverEuro: dt.turnover,
+          }),
+      ),
+      Stream.runCollect,
+      Effect.map(
+        Chunk.sort(Order.reverse(Order.struct({ date: Order.string }))),
+      ),
+      Effect.map((ph) => ({
+        data: Chunk.toArray(ph),
+        isin: String.split(options.symbol, ":")[1],
+        totalCount: ph.length,
+        tradedInPercent: false,
+      })),
+      Effect.provide(NodeSocket.layerWebSocketConstructor),
+    );
 
   return {
     getTradingViewInfo,
     getTradingViewRawHistory,
     getTradingViewHistory,
+    getMdsToken,
     getPriceHistory,
   };
 });

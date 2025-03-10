@@ -18,12 +18,13 @@
     "organization": false
   },
   "devDependencies": {
-    "@effect/platform": ">=0.69.0 <1.0.0",
+    "@effect/platform": "0.75.1",
+    "@effect/platform-node": "0.71.1",
     "@effect/vitest": "^0.17.3",
     "@types/node": "ts5.5",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "effect": "^3.10.0",
+    "effect": "3.12.7",
     "eslint": "^9",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -35,6 +36,7 @@
   },
   "peerDependencies": {
     "@effect/platform": ">=0.69.0 <1.0.0",
+    "@effect/platform-node": ">=0.64.0 <1.0.0",
     "effect": ">=3.10.0 <4.0.0"
   },
   "main": "lib/index.js",

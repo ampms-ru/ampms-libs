@@ -1,7 +1,6 @@
 import { FetchHttpClient } from "@effect/platform";
 import { expect, layer } from "@effect/vitest";
 import { Effect, Layer } from "effect";
-import { PriceHistoryError } from "../src/errors";
 import {
   PriceHistory,
   Resolution,
@@ -91,6 +90,33 @@ layer(TestLayer)("BoerseFrankfurtService", (it) => {
     }),
   );
 
+  it.effect("should get mds token", () =>
+    Effect.gen(function* () {
+      expect.assertions(2);
+
+      const result = yield* BoerseFrankfurtService.getMdsToken();
+
+      expect(result).toStrictEqual({
+        token: expect.any(String),
+      });
+
+      const decoded = JSON.parse(
+        Buffer.from(result.token.split(".")[1], "base64").toString(),
+      );
+
+      expect(decoded).toStrictEqual(
+        expect.objectContaining({
+          iss: "https://auth.ariva-services.de/auth/realms/mds",
+          sub: "9a21c921-1261-4f86-b761-008eb82584e3",
+          typ: "Bearer",
+          azp: "c_boerse_frankfurt",
+          scope: "email profile",
+          email_verified: false,
+        }),
+      );
+    }),
+  );
+
   it.effect("should get price history", () =>
     Effect.gen(function* () {
       expect.assertions(1);
@@ -137,19 +163,4 @@ layer(TestLayer)("BoerseFrankfurtService", (it) => {
       });
     }),
   );
-
-  it.effect("should fail with PriceHistoryError", () => {
-    expect.assertions(1);
-
-    return BoerseFrankfurtService.getPriceHistory({
-      symbol: "????:invalid",
-      from: new Date(),
-      to: new Date(),
-    }).pipe(
-      Effect.catchAll((error) => {
-        expect(error).toBeInstanceOf(PriceHistoryError);
-        return Effect.void;
-      }),
-    );
-  });
 });
