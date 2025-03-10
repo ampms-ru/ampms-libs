@@ -1,5 +1,11 @@
 # @ampms-libs/effect-boerse-frankfurt
 
+## 0.2.0
+
+### Minor Changes
+
+- [`8aeb5af`](https://github.com/ampms-ru/ampms-libs/commit/8aeb5af94f0153478689e79e5becf12f10e23d18) Thanks [@floydspace](https://github.com/floydspace)! - fetch price history from web socket mds service
+
 ## 0.1.0
 
 ### Minor Changes
