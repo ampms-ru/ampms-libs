@@ -22,22 +22,20 @@ import {
   UnprocessableEntityFinanceError,
 } from "./schema";
 
-export const handleErrors = (
-  error:
-    | BadRequestFinanceError
-    | NotFoundFinanceError
-    | UnprocessableEntityFinanceError
-    | UnknownFinanceError,
-) =>
-  Match.value(error).pipe(
-    Match.tag("BadRequestError", (error) => new BadRequestError(error)),
-    Match.tag("NotFoundError", (error) => new NotFoundError(error)),
-    Match.tag(
-      "UnprocessableEntityError",
-      (error) => new UnprocessableEntityError(error),
-    ),
-    Match.orElse((error) => new UnknownYahooFinanceError(error)),
-  );
+export const handleErrors = Match.type<
+  | BadRequestFinanceError
+  | NotFoundFinanceError
+  | UnprocessableEntityFinanceError
+  | UnknownFinanceError
+>().pipe(
+  Match.tag("BadRequestError", (error) => new BadRequestError(error)),
+  Match.tag("NotFoundError", (error) => new NotFoundError(error)),
+  Match.tag(
+    "UnprocessableEntityError",
+    (error) => new UnprocessableEntityError(error),
+  ),
+  Match.orElse((error) => new UnknownYahooFinanceError(error)),
+);
 
 const makeService = Effect.gen(function* () {
   const clientV1 = yield* makeV1HttpClient;
