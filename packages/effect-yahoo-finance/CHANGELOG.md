@@ -1,5 +1,11 @@
 # @ampms-libs/effect-yahoo-finance
 
+## 0.2.1
+
+### Patch Changes
+
+- [`9f244bd`](https://github.com/ampms-ru/ampms-libs/commit/9f244bd3cdc1c7af30a5cbf2a574651474728ac9) Thanks [@floydspace](https://github.com/floydspace)! - fix unix time rounding
+
 ## 0.2.0
 
 ### Minor Changes
