@@ -2,3 +2,4 @@
 
 packages:
   - packages/effect-boerse-frankfurt
+  - packages/effect-yahoo-finance

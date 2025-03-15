@@ -120,6 +120,58 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1(@types/node@22.13.10)
 
+  packages/effect-yahoo-finance:
+    dependencies:
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
+    devDependencies:
+      '@effect/platform':
+        specifier: 0.75.1
+        version: 0.75.1(effect@3.12.7)
+      '@effect/platform-node':
+        specifier: 0.71.1
+        version: 0.71.1(@effect/platform@0.75.1(effect@3.12.7))(effect@3.12.7)
+      '@effect/vitest':
+        specifier: ^0.17.3
+        version: 0.17.3(effect@3.12.7)(vitest@2.1.1(@types/node@22.13.10))
+      '@types/node':
+        specifier: ts5.5
+        version: 22.13.10
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8
+        version: 8.22.0(@typescript-eslint/parser@8.22.0(eslint@9.19.0)(typescript@5.5.4))(eslint@9.19.0)(typescript@5.5.4)
+      '@typescript-eslint/parser':
+        specifier: ^8
+        version: 8.22.0(eslint@9.19.0)(typescript@5.5.4)
+      effect:
+        specifier: 3.12.7
+        version: 3.12.7
+      eslint:
+        specifier: ^9
+        version: 9.19.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.19.0)
+      eslint-import-resolver-typescript:
+        specifier: ^3.6.3
+        version: 3.6.3(@typescript-eslint/parser@8.22.0(eslint@9.19.0)(typescript@5.5.4))(eslint-plugin-import@2.30.0)(eslint@9.19.0)
+      eslint-plugin-import:
+        specifier: ^2.30.0
+        version: 2.30.0(@typescript-eslint/parser@8.22.0(eslint@9.19.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@9.19.0)
+      eslint-plugin-prettier:
+        specifier: ^5.2.1
+        version: 5.2.1(eslint-config-prettier@9.1.0(eslint@9.19.0))(eslint@9.19.0)(prettier@3.3.3)
+      prettier:
+        specifier: ^3.3.3
+        version: 3.3.3
+      typescript:
+        specifier: ~5.5.4
+        version: 5.5.4
+      vitest:
+        specifier: ^2.1.1
+        version: 2.1.1(@types/node@22.13.10)
+
 packages:
 
   '@ampproject/remapping@2.3.0':
@@ -1099,6 +1151,9 @@ packages:
 
   dataloader@1.4.0:
     resolution: {integrity: sha512-68s5jYdlvasItOJnCuI2Q9s4q98g0pCyL3HrcKJu8KNugUl8ahgmZYg38ysLTgQjjXX3H8CJLkAvWrclWfcalw==}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -3279,6 +3334,8 @@ snapshots:
       is-data-view: 1.0.1
 
   dataloader@1.4.0: {}
+
+  date-fns@4.1.0: {}
 
   debug@3.2.7:
     dependencies:
