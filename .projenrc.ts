@@ -44,7 +44,6 @@ new TypeScriptLibProject({
 new TypeScriptLibProject({
   parent: project,
   name: "effect-yahoo-finance",
-  deps: ["date-fns"],
   devDeps: [
     ...commonDevDeps,
     "@effect/platform@0.75.1",
