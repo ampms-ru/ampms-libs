@@ -4,8 +4,8 @@ import { makeV1HttpClient, makeV8HttpClient } from "./client";
 import {
   BadRequestError,
   NotFoundError,
-  UnprocessableEntityError,
   UnknownYahooFinanceError,
+  UnprocessableEntityError,
 } from "./errors";
 import {
   BadRequestFinanceError,
@@ -36,6 +36,9 @@ export const handleErrors = Match.type<
   ),
   Match.orElse((error) => new UnknownYahooFinanceError(error)),
 );
+
+export const toEpochSeconds: (self: DateTime.DateTime) => number = (dt) =>
+  Math.round(dt.epochMillis / 1000);
 
 const makeService = Effect.gen(function* () {
   const clientV1 = yield* makeV1HttpClient;
@@ -68,8 +71,8 @@ const makeService = Effect.gen(function* () {
   const getPriceHistory = (options: GetPriceHistoryOptions) =>
     getChartData({
       symbol: options.symbol,
-      period1: DateTime.toEpochMillis(DateTime.unsafeMake(options.from)) / 1000,
-      period2: DateTime.toEpochMillis(DateTime.unsafeMake(options.to)) / 1000,
+      period1: toEpochSeconds(DateTime.unsafeMake(options.from)),
+      period2: toEpochSeconds(DateTime.unsafeMake(options.to)),
       interval: "1d",
       events: ["div", "splits", "capitalGains"],
     }).pipe(
