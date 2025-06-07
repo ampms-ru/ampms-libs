@@ -5,7 +5,7 @@
       "description": "Full release build for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run build",
+          "exec": "pnpm --recursive  run build",
           "receiveArgs": true
         }
       ]
@@ -36,7 +36,7 @@
       "description": "Only compile for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run compile",
+          "exec": "pnpm --recursive  run compile",
           "receiveArgs": true
         }
       ]
@@ -70,7 +70,7 @@
       },
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run eslint",
+          "exec": "pnpm --recursive  run eslint",
           "receiveArgs": true
         }
       ]
@@ -98,7 +98,7 @@
       "description": "Creates the distribution package for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run package",
+          "exec": "pnpm --recursive  run package",
           "receiveArgs": true
         }
       ]
@@ -108,7 +108,7 @@
       "description": "Runs after successful compilation for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run post-compile",
+          "exec": "pnpm --recursive  run post-compile",
           "receiveArgs": true
         }
       ]
@@ -118,7 +118,7 @@
       "description": "Prepare the project for compilation for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run pre-compile",
+          "exec": "pnpm --recursive  run pre-compile",
           "receiveArgs": true
         }
       ]
@@ -156,7 +156,7 @@
       "description": "Watch & compile in the background for all affected projects",
       "steps": [
         {
-          "exec": "pnpm --recursive --parallel run watch",
+          "exec": "pnpm --recursive  run watch",
           "receiveArgs": true
         }
       ]

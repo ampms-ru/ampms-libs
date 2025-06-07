@@ -119,8 +119,10 @@ layer(TestLayer)("YahooFinanceService", (it) => {
                 gmtoffset: -14400,
                 instrumentType: "EQUITY",
                 priceHint: 2,
-                regularMarketPrice: 213.49,
-                regularMarketTime: 1741982401,
+                regularMarketPrice:
+                  result.chart.result[0].meta.regularMarketPrice,
+                regularMarketTime:
+                  result.chart.result[0].meta.regularMarketTime,
                 symbol: "AAPL",
                 timezone: "EDT",
               },

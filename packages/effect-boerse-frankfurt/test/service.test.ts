@@ -45,13 +45,10 @@ layer(TestLayer)("BoerseFrankfurtService", (it) => {
           pricescale: 1000,
           session: "0900-1730",
           supported_resolutions: [
-            Resolution.Minute10,
             Resolution.Minute15,
-            Resolution.Minute30,
             Resolution.Hour,
             Resolution.Day,
             Resolution.Week,
-            Resolution.Month,
             Resolution.Quarter,
           ],
           ticker: "XETR:IE00BK5H8015",

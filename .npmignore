@@ -18,6 +18,9 @@ tsconfig.tsbuildinfo
 /.eslintrc.json
 /.husky/
 /.changeset/
+/.envrc
+/flake.lock
+/flake.nix
 /.gitattributes
 /.projenrc.ts
 /projenrc

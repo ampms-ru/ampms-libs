@@ -45,6 +45,7 @@ jspm_packages/
 !/.changeset/config.json
 !/.github/workflows/release.yml
 .vscode/settings.json
+.direnv/
 !/pnpm-workspace.yaml
 !/.projenrc.ts
 !/.husky/pre-push

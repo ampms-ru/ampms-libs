@@ -18,13 +18,13 @@
     "organization": false
   },
   "devDependencies": {
-    "@effect/platform": "0.75.1",
-    "@effect/platform-node": "0.71.1",
-    "@effect/vitest": "^0.17.3",
+    "@effect/platform": "^0.84.8",
+    "@effect/platform-node": "^0.85.8",
+    "@effect/vitest": "^0.23.4",
     "@types/node": "ts5.5",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "effect": "3.12.7",
+    "effect": "^3.16.4",
     "eslint": "^9",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
@@ -32,7 +32,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "typescript": "~5.5.4",
-    "vitest": "^2.1.1"
+    "vitest": "^3.2.2"
   },
   "peerDependencies": {
     "@effect/platform": ">=0.69.0 <1.0.0",

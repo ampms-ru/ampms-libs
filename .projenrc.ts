@@ -5,7 +5,7 @@ const project = new MonorepoProject({
   name: "ampms-libs",
   authorEmail: "ifloydrose@gmail.com",
   authorName: "Victor Korzunin",
-  devDeps: ["@floydspace/projen-components@next"],
+  devDeps: ["@floydspace/projen-components"],
 });
 
 new Vitest(project);
@@ -21,6 +21,10 @@ new Changesets(project, {
 });
 
 project.addGitIgnore(".vscode/settings.json");
+project.addGitIgnore(".direnv/"); // flake environment creates .direnv folder
+project.addPackageIgnore("/.envrc");
+project.addPackageIgnore("/flake.lock");
+project.addPackageIgnore("/flake.nix");
 
 const commonDevDeps = ["@effect/vitest"];
 
@@ -29,9 +33,9 @@ new TypeScriptLibProject({
   name: "effect-boerse-frankfurt",
   devDeps: [
     ...commonDevDeps,
-    "@effect/platform@0.75.1",
-    "@effect/platform-node@0.71.1",
-    "effect@3.12.7",
+    "@effect/platform",
+    "@effect/platform-node",
+    "effect",
   ],
   peerDeps: [
     "@effect/platform@>=0.69.0 <1.0.0",
@@ -46,9 +50,9 @@ new TypeScriptLibProject({
   name: "effect-yahoo-finance",
   devDeps: [
     ...commonDevDeps,
-    "@effect/platform@0.75.1",
-    "@effect/platform-node@0.71.1",
-    "effect@3.12.7",
+    "@effect/platform",
+    "@effect/platform-node",
+    "effect",
   ],
   peerDeps: [
     "@effect/platform@>=0.69.0 <1.0.0",
