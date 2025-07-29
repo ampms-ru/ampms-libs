@@ -75,7 +75,7 @@ export class SearchNews extends Schema.Class<SearchNews>("SearchNews")({
       ),
     }),
   ),
-  relatedTickers: Schema.Array(QuoteSymbol),
+  relatedTickers: Schema.optional(Schema.Array(QuoteSymbol)),
 }) {}
 
 export class ResearchReport extends Schema.Class<ResearchReport>(
