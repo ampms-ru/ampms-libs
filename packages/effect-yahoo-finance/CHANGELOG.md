@@ -1,5 +1,11 @@
 # @ampms-libs/effect-yahoo-finance
 
+## 0.2.2
+
+### Patch Changes
+
+- [`2a8ae82`](https://github.com/ampms-ru/ampms-libs/commit/2a8ae82249545e91713f24592966ebdaa364d572) Thanks [@floydspace](https://github.com/floydspace)! - fix yahoo news schema
+
 ## 0.2.1
 
 ### Patch Changes
