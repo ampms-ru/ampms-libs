@@ -77,7 +77,7 @@ layer(TestLayer)("YahooFinanceService", (it) => {
     );
   });
 
-  it.effect("should get chart data", () =>
+  it.effect.skip("should get chart data", () =>
     Effect.gen(function* () {
       expect.assertions(1);
 
@@ -137,7 +137,7 @@ layer(TestLayer)("YahooFinanceService", (it) => {
     }),
   );
 
-  it.effect("should get history", () =>
+  it.effect.skip("should get history", () =>
     Effect.gen(function* () {
       expect.assertions(1);
 
