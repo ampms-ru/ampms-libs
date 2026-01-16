@@ -1,0 +1,24 @@
+{
+  "count": 1,
+  "quotes": [
+    {
+      "quoteType": "EQUITY",
+      "symbol": "AAPL",
+      "shortname": "Apple Inc.",
+      "longname": "Apple Inc.",
+      "index": "quotes",
+      "score": 16391000,
+      "typeDisp": "Equity",
+      "exchange": "NMS",
+      "exchDisp": "NASDAQ",
+      "sector": "Technology",
+      "sectorDisp": "Technology",
+      "industry": "Consumer Electronics",
+      "industryDisp": "Consumer Electronics",
+      "isYahooFinance": true
+    }
+  ],
+  "news": [],
+  "nav": [],
+  "researchReports": []
+}

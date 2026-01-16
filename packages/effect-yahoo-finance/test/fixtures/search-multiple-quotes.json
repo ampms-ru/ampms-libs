@@ -1,0 +1,46 @@
+{
+  "count": 3,
+  "quotes": [
+    {
+      "quoteType": "EQUITY",
+      "symbol": "AAPL",
+      "shortname": "Apple Inc.",
+      "longname": "Apple Inc.",
+      "index": "quotes",
+      "score": 16391000,
+      "typeDisp": "Equity",
+      "exchange": "NMS",
+      "exchDisp": "NASDAQ",
+      "sector": "Technology",
+      "sectorDisp": "Technology",
+      "industry": "Consumer Electronics",
+      "industryDisp": "Consumer Electronics",
+      "dispSecIndFlag": false,
+      "isYahooFinance": true
+    },
+    {
+      "quoteType": "EQUITY",
+      "symbol": "TSLA",
+      "shortname": "Tesla, Inc.",
+      "longname": "Tesla, Inc.",
+      "index": "quotes",
+      "score": 18458000,
+      "typeDisp": "Equity",
+      "exchange": "NMS",
+      "exchDisp": "NASDAQ",
+      "sector": "Consumer Cyclical",
+      "sectorDisp": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "industryDisp": "Auto Manufacturers",
+      "isYahooFinance": true
+    }
+  ],
+  "news": [],
+  "nav": [
+    {
+      "navType": "MULTIQUOTE",
+      "symbols": ["AAPL", "TSLA"]
+    }
+  ],
+  "researchReports": []
+}

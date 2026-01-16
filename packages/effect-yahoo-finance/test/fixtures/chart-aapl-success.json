@@ -1,0 +1,41 @@
+{
+  "chart": {
+    "result": [
+      {
+        "indicators": {
+          "adjclose": [
+            {
+              "adjclose": [215.84495544433594, 216.31390380859375]
+            }
+          ],
+          "quote": [
+            {
+              "close": [216.32000732421875, 216.7899932861328],
+              "high": [217.22000122070312, 216.89999389648438],
+              "low": [213.9199981689453, 214.5],
+              "open": [216.5399932861328, 215.75],
+              "volume": [59357400, 45519300]
+            }
+          ]
+        },
+        "timestamp": [1726493400, 1726579800],
+        "meta": {
+          "chartPreviousClose": 222.5,
+          "currency": "USD",
+          "dataGranularity": "1d",
+          "exchangeName": "NMS",
+          "exchangeTimezoneName": "America/New_York",
+          "firstTradeDate": 345479400,
+          "gmtoffset": -14400,
+          "instrumentType": "EQUITY",
+          "priceHint": 2,
+          "regularMarketPrice": 216.79,
+          "regularMarketTime": 1726599600,
+          "symbol": "AAPL",
+          "timezone": "EDT"
+        }
+      }
+    ],
+    "error": null
+  }
+}

@@ -1,14 +1,11 @@
-import { FetchHttpClient } from "@effect/platform";
 import { expect, layer } from "@effect/vitest";
 import { DateTime, Effect, Layer } from "effect";
 import { ChartResult, QuoteSymbol } from "../src";
+import { MockHttpClient } from "./fixtures/mock-client";
 import { BadRequestError, NotFoundError } from "../src/errors";
 import { YahooFinanceService } from "../src/service";
 
-const TestLayer = Layer.provide(
-  YahooFinanceService.Live,
-  FetchHttpClient.layer,
-);
+const TestLayer = Layer.provide(YahooFinanceService.Live, MockHttpClient);
 
 layer(TestLayer)("YahooFinanceService", (it) => {
   it.effect("should search quotes", () =>
@@ -77,7 +74,7 @@ layer(TestLayer)("YahooFinanceService", (it) => {
     );
   });
 
-  it.effect.skip("should get chart data", () =>
+  it.effect("should get chart data", () =>
     Effect.gen(function* () {
       expect.assertions(1);
 
@@ -137,7 +134,7 @@ layer(TestLayer)("YahooFinanceService", (it) => {
     }),
   );
 
-  it.effect.skip("should get history", () =>
+  it.effect("should get history", () =>
     Effect.gen(function* () {
       expect.assertions(1);
 
